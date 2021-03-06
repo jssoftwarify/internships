@@ -1,0 +1,138 @@
+﻿@using InternshipWebApp.Models;
+@model RecordPrintModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        html {
+            font-family: Arial, sans-serif;
+            font-size: 9pt;
+            width: 210mm;
+        }
+
+        body {
+            margin: 1.6cm;
+        }
+
+        @@page {
+            size: auto;
+            margin: 0;
+            margin-bottom: 1cm;
+        }
+
+        @@media print {
+            @@page {
+                margin: 0;
+            }
+        }
+
+        h1 {
+            margin-top: 35px;
+            font-size: 18pt;
+            text-align: center;
+            font-weight: normal;
+            padding: 0;
+            margin: 0;
+            margin-top: 0.5em;
+            margin-bottom: 20px;
+        }
+
+        .td-space-left {
+            padding-left: 30px;
+        }
+
+        table {
+            text-align: left;
+        }
+
+        .table {
+            table-layout: fixed;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .small {
+            border: 1px solid black;
+            overflow: hidden;
+            width: 100px !important;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .wide {
+            width: 600px !important;
+            border: 1px solid black;
+            vertical-align: top;
+            padding: 5px;
+        }
+
+        .podpis {
+            padding-top: 50px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h1>Výkaz odborné praxe</h1>
+    </section>
+    <section>
+        <table>
+            <tr>
+                <td><b>Žák:</b></td>
+                <td class="td-space-left">@Model.StudentName, třída @Model.Classroom</td>
+
+            </tr>
+            <tr>
+                <td><b>Název firmy:</b></td>
+                <td class="td-space-left">@Model.Company; @Model.CompanyAddress</td>
+
+            </tr>
+            <tr>
+                <td><b>Zodpovědná osoba:</b></td>
+                <td class="td-space-left">@Model.CompanyRepresentative, tel: @Model.CompanyRepresentativeTelephone, email: @Model.CompanyRepresentativeEmail</td>
+
+            </tr>
+        </table>
+    </section>
+    <section>
+        <table class="table">
+            <tr>
+                <td class="small" style="text-align: center;">Datum</td>
+                <td class="wide">Popis práce</td>
+                <td class="small">Počet hodin</td>
+            </tr>
+            @foreach(var i in Model.RecordList)
+            {
+                <tr>
+                    <td class="small">
+                        @i.Date
+                    </td>
+                    <td class="wide">
+                        @i.Description
+                    </td>
+                    <td class="small">
+                        @i.NumberOfHours
+                    </td>
+                </tr>
+            }
+        </table>
+    </section>
+    <section>
+        <p><b>Shrnutí praxe:</b></p>
+    </section>
+    <section>
+        <table class="podpis">
+            <tr>
+                <td>V Liberci dne:..............................</td>
+                <td>Podpis žáka:..............................</td>
+            </tr>
+
+        </table>
+    </section>
+</body> 
+</html>

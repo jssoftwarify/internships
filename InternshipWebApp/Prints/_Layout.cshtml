@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        html {
+            font-family: Arial, sans-serif;
+            font-size: 9pt;
+            width: 210mm;
+           
+        }
+
+        body {
+            margin: 1.6cm;
+        }
+
+        @@page {
+            size: auto;
+            margin: 0;
+            margin-bottom: 1cm;
+           
+        }
+        @@media print {
+            @@page { margin: 0; }
+  
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            page-break-after: avoid;
+        }
+
+        td {
+            padding: 0;
+        }
+
+        tr {
+            text-align: left;
+        }
+
+        h1 {
+            margin-top: 35px;
+            font-size: 18pt;
+            text-align: center;
+            font-weight: normal;
+            padding: 0;
+            margin: 0;
+            margin-top: 0.5em;
+        }
+
+        h3 {
+            font-size: 12pt;
+            font-weight: normal;
+            padding: 0;
+            margin: 0;
+            margin-top: 0.5em;
+        }
+
+        .td-space-left {
+            padding-left: 30px;
+        }
+
+        .table-padding-top {
+            padding-top: 0;
+        }
+
+        .p-margin {
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
+        .p-margin-2 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .td-col-body {
+            padding-left: 30px;
+            padding-right: 45px;
+        }
+
+        .td-col-body-1 {
+            white-space: pre-wrap;
+            padding-left: 30px;
+            padding-right: 45px;
+        }
+
+        table {
+            max-width: 100%;
+            white-space: nowrap;
+            table-layout: fixed;
+        }
+
+        .td-col-head {
+            padding-top: 0 !important;
+        }
+
+        td {
+            vertical-align: top;
+        }
+
+        .ustanoveni {
+            margin-top: 4px;
+            margin-bottom: 4px;
+            font-size: 8pt;
+        }
+    </style>
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

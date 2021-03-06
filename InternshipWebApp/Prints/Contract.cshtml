@@ -1,0 +1,133 @@
+﻿@using InternshipWebApp.Models
+@model Contract
+@{
+    Layout = "_Layout.cshtml";
+}
+<header id="document-title">
+    <h1>Dohoda o výrobní praxi</h1>
+</header>
+<section>
+    <p>
+
+        Střední průmyslová škola strojní a elektrotechnická a Vyšší odborná škola, Liberec 1, Masarykova 3, příspěvková organizace (dále jen škola), zastoupená ředitelem Ing. Jaroslav Semerád
+    </p>
+</section>
+<section>
+    <table>
+        <tr>
+            <td><b>Společnost:</b></td>
+            <td class="td-space-left">@Model.CompanyName</td>
+        </tr>
+        <tr>
+            <td><b>Sídlo:</b></td>
+            <td class="td-space-left">@Model.CompanyAddress</td>
+        </tr>
+        <tr>
+            <td><b>Kontakt:</b></td>
+            <td class="td-space-left">@Model.CompanyContact, tel: @Model.CompanyContactTelephoneNumber, email: @Model.CompanyContactEmail</td>
+        </tr>
+    </table>
+</section>
+<section>
+    <p class="p-margin">
+        uzavírají smlouvu, která je založena na základě následující dohody o odborné praxi a podmínkách pro její konání (podle § 65 odst. 2 školského zákona č. 561/2004 Sb. a § 12 vyhlášky č. 13/2005 Sb.).
+    </p>
+    <p class="p-margin-2">Předmětem dohody je zajištění odborné praxe žáka:</p>
+
+
+    <table class="table-padding-top">
+        <tr>
+            <td class="td-col-head"><b>Jméno:</b></td>
+            <td class="td-col-body-1">@Model.StudentFirstName</td>
+            <td class="td-col-head"><b>Přijmení:</b></td>
+            <td class="td-col-body">@Model.StudentLastName</td>
+            <td class="td-col-head"><b>Třída:</b></td>
+            <td class="td-col-body">@Model.Classroom</td>
+        </tr>
+        <tr>
+            <td class="td-col-head"><b>Datum narození:</b></td>
+            <td class="td-col-body">@Model.StudentBirthDate.</td>
+            <td class="td-col-head"><b>Telefon:</b></td>
+            <td class="td-col-body">@Model.StudentTelephone</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="td-col-head"><b>Bydliště:</b></td>
+            <td class="td-col-body-1">@Model.StudentAddress</td>
+        </tr>
+
+    </table>
+</section>
+<section>
+    <p class="p-margin">
+        Vedením odborné praxe jsou pověřeni
+    </p>
+    <table>
+        <tr>
+            <td><b>Za školu:</b></td>
+            <td class="td-space-left">@Model.DefinitionRpresentative, tel: @Model.DefinitionRepresentativeTelephoneNumber, email: @Model.DefinitionRepresentativeEmail</td>
+        </tr>
+        <tr>
+            <td><b>Za organizaci:</b></td>
+            <td class="td-space-left">@Model.CompanyRepresentative, tel: @Model.CompanyRepresentativeTelephone, email: @Model.CompanyRepresentativeEmail</td>
+        </tr>
+    </table>
+    <p class="p-margin">
+        @Model.DefinitionDetail
+    </p>
+    <table>
+        <tr>
+            <td><b>Místo výkonu:</b></td>
+            <td class="td-space-left">@Model.CompanyAddress</td>
+        </tr>
+        <tr>
+            <td><b>Popis praxe:</b></td>
+            <td class="td-col-body-1 ">@Model.InternshipDetail</td>
+        </tr>
+    </table>
+</section>
+<h3>Ustanovení dohody</h3>
+<p class="ustanoveni">
+    Praktické činnosti, které bude žák vykonávat, budou v souladu s oborem a jeho zaměřením.
+</p>
+<p class="ustanoveni">Smluvní organizace poskytne pro praktikujícího žáka potřebné vybavení včetně ochranných pomůcek. Každý žák SPŠSE a VOŠ je proškolen z předpisů BOZP v rámci své činnosti ve škole při vykonávání praxe v dílnách školy. BOZ a PO pro odbornou praxi zajistí organizace (seznámení s bezpečnostními a požárními předpisy).</p>
+<p class="ustanoveni">Žák je povinen dodržovat všechna pravidla BOZ a PO, se kterými byl seznámen.</p>
+<p class="ustanoveni">Náklady spojené s praktickou činností žáka půjdou na vrub organizace.</p>
+<p class="ustanoveni">Způsob dopravy do zaměstnání bude volen individuálně dle možností dopravní obslužnosti nebo podle vzájemné dohody žáka a organizace.</p>
+<p class="ustanoveni">S ohledem na skutečnost, že žáci nebudou při odborné praxi vykonávat produktivní práci, nebude žák odměňován firmou (podnikatelem) podle § 122 odst. 1 zákona č. 561/2004 Sb.</p>
+<p class="ustanoveni">Uzavírá-li škola jakoukoli smlouvu (nájemní smlouvu, smlouvu o dílo, smlouvu o poskytnutí služeb, nepojmenovanou smlouvu apod.), k jejímuž plnění je zapotřebí druhé smluvní straně poskytnout osobní údaje, škola vždy a bezpodmínečně bude trvat na tom, aby ve smlouvě byla druhé smluvní straně uložena povinnost:</p>
+<ul class="ustanoveni">
+    <li>přijmout všechna bezpečnostní, technická, organizační a jiná opatření s přihlédnutím ke stavu techniky, povaze zpracování, rozsahu zpracování, kontextu zpracování a účelům zpracování k zabránění jakéhokoli narušení poskytnutých osobních údajů;</li>
+    <li>nezapojit do zpracování žádné další osoby bez předchozího písemného souhlasu školy;</li>
+    <li>zpracovávat osobní údaje pouze pro plnění smlouvy(vč.předání údajů do třetích zemí a mezinárodním organizacím); výjimkou jsou pouze případy, kdy jsou určité povinnosti uloženy přímo právním předpisem;</li>
+    <li>zajistit, aby se osoby oprávněné zpracovávat osobní údaje u dodavatele byly zavázány k mlčenlivosti nebo aby se na ně vztahovala zákonná povinnost mlčenlivosti;</li>
+    <li>zajistit, že dodavatel bude škole bez zbytečného odkladu nápomocen při plnění povinností školy, zejména povinnosti reagovat na žádosti o výkon práv subjektů údajů, povinnosti ohlašovat případy porušení zabezpečení osobních údajů dozorovému úřadu dle čl. 33, Obecné nařízení EU o ochraně osobních údajů(GDPR) - dále jen „nařízení“, povinnosti oznamovat případy porušení zabezpečení osobních údajů subjektu údajů dle čl. 34 tohoto nařízení, povinnosti posoudit vliv na ochranu osobních údajů dle čl. 35 tohoto nařízení a povinnosti provádět předchozí konzultace dle čl. 36 tohoto nařízení, a že za tímto účelem zajistí nebo přijme vhodná technická a organizační opatření, o kterých ihned informuje školu;</li>
+    <li>po ukončení smlouvy řádně naložit se zpracovávanými osobními údaji, např.že všechny osobní údaje vymaže, nebo je vrátí škole a vymaže existující kopie apod.,</li>
+    <li>poskytnout škole veškeré informace potřebné k doložení toho, že byly splněny povinnosti stanovené škole právními předpisy;</li>
+    <li>umožnit kontrolu, audit či inspekci prováděné školou nebo příslušným orgánem dle právních předpisů;</li>
+    <li>poskytnout bez zbytečného odkladu nebo ve lhůtě, kterou stanoví škola, součinnost potřebnou pro plnění zákonných povinností školy spojených s ochranou osobních údajů, jejich zpracováním;</li>
+    <li>poskytnuté osobní údaje chránit v souladu s právními předpisy;</li>
+</ul>
+<h3>Dodatečná ustanovení</h3>
+    </section>
+<section>
+    <table style="width: 100%; margin-top: 20px;border-spacing: 15px;">
+        <tr>
+            <td>V Liberci, dne @DateTime.Now.ToString("dd.MM.yyy")</td>
+            <td>V</td>
+            <td>V</td>
+        </tr>
+        <tr>
+            <td style="height:60px; border-bottom: 1px solid black; text-align: center;"></td>
+            <td style="height:60px; border-bottom: 1px solid black; text-align: center"></td>
+            <td style="height:60px; border-bottom: 1px solid black; text-align: center"></td>
+        </tr>
+        <tr>
+            <td style="text-align: center">Podpis ředitele školy</td>
+            <td style="text-align: center">Podpis zástupce organizace</td>
+            <td style="text-align: center">Podpis vedoucího praxe</td>
+        </tr>
+
+    </table>
+</section>
