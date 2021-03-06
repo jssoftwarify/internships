@@ -1,0 +1,119 @@
+/*BROWN: #a7835f*/
+
+* {
+  box-sizing: border box;
+}
+body,
+html {
+  margin: 0%;
+  font-family: "Montserrat", sans-serif;
+  background-color: #222831;
+  height: 100%;
+  width: 100vw;
+  background-position: contain;
+  background-size: cover;
+}
+.main {
+  display: block;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 3em 1.5em;
+  justify-content: center;
+  padding-top: 70px;
+}
+.navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.navigation li {
+  flex: 3;
+  text-align: center;
+}
+.navigation p {
+  margin-bottom: 0;
+}
+.navigation a {
+  color: white;
+  font-size: 15pt;
+  margin-bottom: 0px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+}
+a:link {
+  text-decoration: none;
+  transition: 300ms;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #a7835f;
+}
+
+a:active {
+  text-decoration: none;
+}
+.navigation a:hover {
+  transform: scale(1.2);
+}
+.dot {
+  color: white;
+  font-size: 45pt;
+  height: 7px;
+}
+.logoutButton {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  color: white;
+  font-size: 15pt;
+  text-decoration: none;
+  cursor: pointer;
+}
+.logoutButton:hover {
+  color: #a7835f;
+}
+.underline {
+  height: 15px;
+  width: 35px;
+}
+.hamburger {
+  display: none;
+  margin: 7px;
+}
+@media all and (max-width: 1000px) {
+  .navigation ul {
+    flex-wrap: wrap;
+  }
+  .navigation li {
+    flex: 100%;
+  }
+  .underline {
+    visibility: hidden;
+  }
+  .hamburger {
+    display: block;
+  }
+  .main {
+    padding-top: 25px;
+  }
+}
+@media all and (max-width: 480px) {
+  .navigation li {
+    flex-basis: 100%;
+  }
+  .underline {
+    visibility: hidden;
+  }
+  .hamburger {
+    display: block;
+  }
+  .main {
+    display: none;
+  }
+}

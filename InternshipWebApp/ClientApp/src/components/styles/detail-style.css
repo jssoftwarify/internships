@@ -1,0 +1,26 @@
+@media only screen and (max-width: 600px) {
+  h3 {
+    font-size: 0.9em !important;
+  }
+  .text-left {
+    margin-top: 2px;
+  }
+  .error-header {
+    font-size: 3em !important;
+  }
+  .error-body {
+    font-size: 1em;
+  }
+  .check-icon {
+    size: 30;
+  }
+}
+.check-icon {
+  size: 20;
+}
+.error-header {
+  font-size: 70pt;
+}
+.error-body {
+  font-size: 25pt;
+}

@@ -1,0 +1,21 @@
+@media only screen and (max-width: 600px) {
+  .hidden-icons {
+    display: none;
+  }
+  .select-box-shift {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .header-icon {
+    text-align: center !important;
+  }
+  .header-text {
+    text-align: center !important;
+  }
+}
+.header-icon {
+  text-align: right;
+}
+.header-text {
+  text-align: left;
+}

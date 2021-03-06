@@ -35,7 +35,7 @@ namespace InternshipWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            IdentityModelEventSource.ShowPII = true; //Add this line
+            //IdentityModelEventSource.ShowPII = true; //Add this line
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -59,6 +59,23 @@ namespace InternshipWebApp
             {
                 configuration.RootPath = "ClientApp/build";
             });
+            services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = Configuration["Authority:Server"];
+                options.RequireHttpsMetadata = true;
+                options.Audience = "ThesesApi";
+            }
+            );
+            services.AddCors(options =>
+            {
+                // this defines a CORS policy called "default"
+                options.AddPolicy("default", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,6 +97,10 @@ namespace InternshipWebApp
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseCors("default");
 
             app.UseEndpoints(endpoints =>
             {
