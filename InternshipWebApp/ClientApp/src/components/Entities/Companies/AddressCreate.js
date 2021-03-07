@@ -69,10 +69,7 @@ const AddressCreate = () => {
     if (!values.PostalCode) {
       errors.PostalCode = "Nutné vyplnit poštovní směrovací číslo!";
     }
-    if (!values.Headquarter) {
-      errors.Headquarter =
-        "Nutné zaškrtnout, zda se jedná o hlavní sídlo firmy!";
-    }
+    
     if (!values.CompanyId) {
       errors.CompanyId = "Nutné vybrat firmu";
     }
