@@ -63,7 +63,7 @@ namespace InternshipWebApp
             {
                 options.Authority = Configuration["Authority:Server"];
                 options.RequireHttpsMetadata = true;
-                options.Audience = "ThesesApi";
+                options.Audience = "Work.test.js";
             }
             );
             services.AddCors(options =>
@@ -115,8 +115,8 @@ namespace InternshipWebApp
 
                 if (env.IsDevelopment())
                 {
-                    //spa.UseReactDevelopmentServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
                 }
             });
         }

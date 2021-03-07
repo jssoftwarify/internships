@@ -99,13 +99,11 @@ const SpecializationCreate = () => {
   }
   function renderDefinitions() {
     const array = definitions.map((item) => {
-      if (item.classroomId === user.classroomId) {
-        return (
-          <option value={item.id} key={item.id}>
-            {item.name}
-          </option>
-        );
-      }
+      return (
+        <option value={item.id} key={item.id}>
+          {item.name}
+        </option>
+      );
     });
     return array;
   }
