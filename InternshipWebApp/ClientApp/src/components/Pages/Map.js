@@ -258,21 +258,7 @@ const Map = () => {
                       Hledat
                     </Button>
                   </Col>
-                  <Col
-                    lg="12"
-                    md="12"
-                    sm="12"
-                    xs="12"
-                    className="button-default"
-                  >
-                    <Button
-                      color="secondary"
-                      onClick={() => renderMarkersByDefinition()}
-                      className="button-default"
-                    >
-                      Default
-                    </Button>
-                  </Col>
+                  
                 </Row>
               </Col>
             </Row>

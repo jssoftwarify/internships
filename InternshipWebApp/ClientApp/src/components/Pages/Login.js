@@ -8,7 +8,7 @@ const Login = () => {
   return (
     <div className="flexContainer">
       <div className="mainText">
-        <h1>STUDENTSKÉ PRAXE</h1>
+        <h1>Správa praxí</h1>
       </div>
       <div>
         <button

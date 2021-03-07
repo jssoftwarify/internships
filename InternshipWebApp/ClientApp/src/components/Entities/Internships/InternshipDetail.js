@@ -40,7 +40,6 @@ const InternshipDetail = (props) => {
   const [companies, setCompanies] = useState([]);
   const [addresses, setAddresses] = useState([]);
   const [definitions, setDefinitions] = useState([]);
-  const [userId, setUserId] = useState();
   const [user, setUser] = useState();
 
   const [companyId, setCompanyId] = useState(null);
@@ -101,9 +100,6 @@ const InternshipDetail = (props) => {
         response.data.data.forEach((item1) => {
           if (item1.id === item.userId) {
             setUser(item1);
-          }
-          if (item1.email === profile.email && item1.id === item.userId) {
-            setUserId(item1.id);
           }
         });
       })

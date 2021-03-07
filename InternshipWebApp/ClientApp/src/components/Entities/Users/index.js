@@ -11,8 +11,6 @@ import Unauthorized from "../../messages/Unauthorized";
 import Error from "../../messages/Error.js";
 import { useHistory } from "react-router-dom";
 
-import SearchCreate from "../../SearchCreate.js";
-
 import Table from "react-bootstrap/Table";
 
 import { Row, Col, Container, Input, InputGroup, Button } from "reactstrap";

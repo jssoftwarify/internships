@@ -38,7 +38,6 @@ const ClassroomDetail = (props) => {
   const [siteMode, setSiteMode] = useState("watch");
 
   const [item, setItem] = useState(null);
-  const [selectListItems, setSelectListItems] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -48,16 +47,6 @@ const ClassroomDetail = (props) => {
       )
       .then((response) => {
         setItem(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
-    axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`
-      )
-      .then((response) => {
-        setSelectListItems(response.data);
       })
       .catch((error) => {
         setError(true);

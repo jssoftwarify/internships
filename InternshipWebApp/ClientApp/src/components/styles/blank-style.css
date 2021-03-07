@@ -9,10 +9,6 @@ body, html{
     background-repeat: no-repeat;
     background-size: cover;
 }
-.logo{
-    height: 50px;
-    width: 50px;
-}
 .item{
     padding: 0% !important;
 }
