@@ -200,12 +200,12 @@ const Internships = () => {
   }
   const checkArray = (array) => {
     var count = 0;
-    array.map((item) => {
-      if (item != null) {
+    array.forEach((item) => {
+      if (item !== null) {
         count++;
       }
     });
-    if (count != 0) {
+    if (count !== 0) {
       return true;
     } else {
       return false;

@@ -42,7 +42,6 @@ const Home = (props) => {
   const [company, setCompany] = useState({ data: {} });
   const [companies, setCompanies] = useState([]);
   const [addresses, setAddresses] = useState([]);
-  const [file, setFile] = useState();
 
   const [isOpen, setIsOpen] = useState([true, true, true]);
 
@@ -151,12 +150,12 @@ const Home = (props) => {
 
   function checkArray(array) {
     var count = 0;
-    array.map((item) => {
+    array.forEach((item) => {
       if (item != null) {
         count++;
       }
     });
-    if (count != 0) {
+    if (count !== 0) {
       return true;
     } else {
       return false;
@@ -373,7 +372,10 @@ const Home = (props) => {
         const url = window.URL.createObjectURL(fileContent);
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", `Smlouva_${user.firstName}_${user.lastName}.html`);
+        link.setAttribute(
+          "download",
+          `Smlouva_${user.firstName}_${user.lastName}.html`
+        );
         document.body.appendChild(link);
         link.click();
       })
@@ -384,14 +386,7 @@ const Home = (props) => {
         setLoading(false);
       });
   };
-  const renderDate = (date) => {
-    date = new Date(date);
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    var day = date.getDate();
-    var datum = day + "." + month + "." + year;
-    return datum;
-  };
+
   if (accessToken) {
     if (error) {
       return (
@@ -580,7 +575,7 @@ const Home = (props) => {
                                 lg="6"
                                 md="6"
                                 className="text-right"
-                                style={{ paddingRight: 1 }}
+                                style={{ width: "100%" }}
                               >
                                 <Input
                                   type="text"
@@ -602,13 +597,7 @@ const Home = (props) => {
                                   </Alert>
                                 ) : null}
                               </Col>
-                              <Col
-                                sm="12"
-                                lg="6"
-                                md="6"
-                                className="text-left"
-                                style={{ paddingLeft: 1 }}
-                              >
+                              <Col sm="12" lg="6" md="6" className="text-left">
                                 <Button
                                   color="success"
                                   type="submit"

@@ -46,7 +46,7 @@ const Classrooms = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, []);
+  }, [accessToken]);
   const searchRequest = (searchString, sortString) => {
     setLoading(true);
     axios

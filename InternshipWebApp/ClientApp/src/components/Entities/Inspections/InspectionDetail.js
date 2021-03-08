@@ -66,7 +66,7 @@ const InspectionDetail = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, [siteMode]);
+  }, [siteMode, props.match.params.id]);
   const validate = (values) => {
     const errors = {};
     if (!values.AdditionalInformations) {

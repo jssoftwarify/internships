@@ -49,7 +49,7 @@ const DefinitionCreate = () => {
       .then(() => {
         setLoading(false);
       });
-  }, []);
+  }, [accessToken]);
   const validate = (values) => {
     const errors = {};
     if (!values.nazev) {

@@ -91,12 +91,12 @@ const Improvements = (props) => {
     return array;
   }
   if (accessToken) {
-   
-      if (error) {
-          return (
-      <Navbar profile={profile} active_item="Definitions">
-        <Error />
-      </Navbar>);
+    if (error) {
+      return (
+        <Navbar profile={profile} active_item="Definitions">
+          <Error />
+        </Navbar>
+      );
     } else if (loading) {
       return (
         <Navbar profile={profile} active_item="Improvements">
@@ -129,7 +129,7 @@ const Improvements = (props) => {
                     </Button>
                     <Button
                       color="success"
-                      onClick={() => history.push("improvement/create")}
+                      onClick={() => history.push("improvements/create")}
                       style={{ marginLeft: 2 }}
                     >
                       Přidat

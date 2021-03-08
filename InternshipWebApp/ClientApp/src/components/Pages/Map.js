@@ -90,7 +90,7 @@ const Map = () => {
       .then(() => {
         setLoading(false);
       });
-  }, []);
+  }, [profile.email]);
   const renderMarkers = (definitions) => {
     const markers = addresses.map((item) => {
       var company;
@@ -107,7 +107,7 @@ const Map = () => {
           item3.professionalExperienceDefinition.active
         ) {
           if (definitions) {
-            definitions.map((item4) => {
+            definitions.forEach((item4) => {
               if (item3.professionalExperienceDefinition.id === item4) {
                 numberOfUsers++;
               }
@@ -146,8 +146,14 @@ const Map = () => {
                 </Popup>
               </Marker>
             );
+          } else {
+            return null;
           }
+        } else {
+          return null;
         }
+      } else {
+        return null;
       }
     });
     return markers;
@@ -258,7 +264,6 @@ const Map = () => {
                       Hledat
                     </Button>
                   </Col>
-                  
                 </Row>
               </Col>
             </Row>

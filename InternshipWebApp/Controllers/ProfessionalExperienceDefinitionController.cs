@@ -54,7 +54,7 @@ namespace InternshipWebApp.Controllers
             await _professionalExperienceDefinitionManager.Delete(id);
         }
 
-        [HttpGet("getClassrooms")]
+        [HttpGet("getClassrooms/{id}")]
         public List<ClassroomDefinition> GetClassrooms(int id)
         {
             var list = new List<ClassroomDefinition>();

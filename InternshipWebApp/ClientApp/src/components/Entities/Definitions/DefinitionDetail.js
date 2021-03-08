@@ -24,7 +24,7 @@ import {
   Input,
   Alert,
 } from "reactstrap";
-import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ReactComponent as Icon } from "../../../assets/definitionIcon.svg";
@@ -44,28 +44,6 @@ const DefinitionDetail = (props) => {
   const [classrooms, setClassrooms] = useState([]);
   const [ids, setIds] = useState([]);
 
-  function useWindowSize() {
-    const isSSR = typeof window !== "undefined";
-    const [windowSize, setWindowSize] = React.useState({
-      width: isSSR ? 1200 : window.innerWidth,
-      height: isSSR ? 800 : window.innerHeight,
-    });
-
-    function changeWindowSize() {
-      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-    }
-
-    React.useEffect(() => {
-      window.addEventListener("resize", changeWindowSize);
-
-      return () => {
-        window.removeEventListener("resize", changeWindowSize);
-      };
-    }, []);
-
-    return windowSize;
-  }
-  console.log(useWindowSize());
   useEffect(() => {
     setLoading(true);
     axios
@@ -94,7 +72,7 @@ const DefinitionDetail = (props) => {
       });
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/api/professionalExperienceDefinition/getClassrooms?id=${props.match.params.id}`,
+        `${process.env.REACT_APP_API_URL}/api/professionalExperienceDefinition/getClassrooms/${props.match.params.id}`,
         {
           headers: {
             Authorization: "Bearer " + accessToken,
@@ -125,7 +103,7 @@ const DefinitionDetail = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, [props.match.params.id]);
+  }, [props.match.params.id, accessToken]);
 
   const validate = (values) => {
     const errors = {};
@@ -579,6 +557,8 @@ const DefinitionDetail = (props) => {
                                     });
                                     if (isEqual) {
                                       return <span key={name}>{name}, </span>;
+                                    } else {
+                                      return null;
                                     }
                                   })}
                                 </h1>

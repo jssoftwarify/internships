@@ -171,7 +171,7 @@ const Accounts = (props) => {
       setLoading(true);
       axios
         .post(
-          `${process.env.REACT_APP_API_URL}/api/Users/setTelephone?id=${user.id}&value=${values.number}`,
+          `${process.env.REACT_APP_API_URL}/api/Users/setTelephone/${user.id}/${values.number}`,
 
           {
             headers: {
@@ -206,7 +206,7 @@ const Accounts = (props) => {
       setLoading(true);
       axios
         .post(
-          `${process.env.REACT_APP_API_URL}/api/Users/setBirthDate?id=${user.id}&value=${values.date}`,
+          `${process.env.REACT_APP_API_URL}/api/Users/setBirthDate/${user.id}/${values.date}`,
           {
             headers: {
               Authorization: "Bearer " + accessToken,
@@ -484,7 +484,7 @@ const Accounts = (props) => {
                                 className="icon"
                                 size="1x"
                                 color="#A9A9A9"
-                                style={{ padding: 5 }}
+                                style={{ padding: 2 }}
                                 onClick={() =>
                                   setTelephoneFormik(!telephoneFormik)
                                 }
@@ -734,7 +734,7 @@ const Accounts = (props) => {
                                 className="icon"
                                 size="1x"
                                 color="#A9A9A9"
-                                style={{ padding: 5 }}
+                                style={{ padding: 2 }}
                                 onClick={() =>
                                   setDateFormikSwitch(!dateFormikSwitch)
                                 }

@@ -57,7 +57,7 @@ namespace InternshipWebApp.Controllers
             await _recordManager.Delete(id);
         }
 
-        [HttpGet("print")]
+        [HttpGet("print/{userId}/{internshipId}")]
         public async Task<ActionResult> DownloadContract(int userId, int internshipId)
         {
             User user = _context.Users.Include(x => x.Address).Include(x => x.Classroom).Where(x => x.Id == userId).FirstOrDefaultAsync().Result;

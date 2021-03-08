@@ -99,7 +99,7 @@ const Records = () => {
   const generateRecords = () => {
     setLoading(true);
     axios({
-      url: `${process.env.REACT_APP_API_URL}/api/record/print?userId=${user.id}&internshipId=${internship.id}`,
+      url: `${process.env.REACT_APP_API_URL}/api/record/print/${user.id}/${internship.id}`,
       method: "GET",
       responseType: "blob",
       headers: {
