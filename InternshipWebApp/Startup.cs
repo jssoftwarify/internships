@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
-using InternshipWebApp.Services.ClassroomService;
 using InternshipWebApp.Services.CompanyAddressService;
 using InternshipWebApp.Services.CompanyService;
 using InternshipWebApp.Services.Email;
@@ -20,6 +19,7 @@ using InternshipWebApp.Services.ProfessionalExperienceDefinitionService;
 using InternshipWebApp.Services.SpecializationService;
 using InternshipWebApp.Services.RecordService;
 using InternshipWebApp.Services;
+using Microsoft.OpenApi.Models;
 
 namespace InternshipWebApp
 {
@@ -63,18 +63,13 @@ namespace InternshipWebApp
             {
                 options.Authority = Configuration["Authority:Server"];
                 options.RequireHttpsMetadata = true;
-                options.Audience = "Work.test.js";
+                options.Audience = Configuration["Authority:ClientId"];
             }
             );
-            services.AddCors(options =>
+
+            services.AddSwaggerGen(c =>
             {
-                // this defines a CORS policy called "default"
-                options.AddPolicy("default", policy =>
-                {
-                    policy.AllowAnyOrigin()
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Internship API", Version = "v1" });
             });
         }
 
@@ -100,7 +95,11 @@ namespace InternshipWebApp
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors("default");
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Internship API");
+            });
 
             app.UseEndpoints(endpoints =>
             {
@@ -115,8 +114,8 @@ namespace InternshipWebApp
 
                 if (env.IsDevelopment())
                 {
-                    //spa.UseReactDevelopmentServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
                 }
             });
         }

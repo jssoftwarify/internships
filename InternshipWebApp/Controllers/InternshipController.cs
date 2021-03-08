@@ -38,8 +38,8 @@ namespace InternshipWebApp.Controllers
         {
             return await _internshipManager.Read(id);
         }
-        [Route("createInternship/{id}"), HttpPost("{id}")]
-
+        
+        [HttpPost("createInternship/{id}")]
         public async Task Post([FromBody] Internship value, int id)
         {
             bool temp = true;
@@ -57,7 +57,7 @@ namespace InternshipWebApp.Controllers
             
         }
 
-        [Route("setState/{id}"), HttpPost("{id}")]
+        [HttpPost("setState/{id}")]
         public async Task<Internship> setState([FromRoute] int id)
         {
             return await _internshipManager.setState(Convert.ToInt32(id));

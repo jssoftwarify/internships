@@ -175,7 +175,7 @@ namespace InternshipWebApp.Controllers
             return _context.Users.Any(e => e.Id == id);
         }
 
-        [Route("setTelephone")]
+        [HttpPost("setTelephone/{id}/{value}")]
         public async Task<IActionResult> setTelephone( int id, string value)
         {
             var user = _context.Users.Find(id);
@@ -188,8 +188,7 @@ namespace InternshipWebApp.Controllers
             return Ok(new { user=user});
 
         }
-        [Route("setBirthDate")]
-
+        [HttpPost("setBirthDate/{id}/{value}")]
         public async Task<IActionResult> setBirthDate(int id, DateTime value)
         {
             var user = _context.Users.Find(id);

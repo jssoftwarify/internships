@@ -37,7 +37,7 @@ namespace InternshipWebApp.Controllers
         {
             await _professionalExperienceDefinitionManager.Create(value);   
         }
-        [Route("setState/{id}"), HttpPost("{id}")]
+        [HttpPost("setState/{id}")]
         public async Task<ProfessionalExperienceDefinition> setState([FromRoute] int id)
         {
             return await _professionalExperienceDefinitionManager.setState(Convert.ToInt32(id));
