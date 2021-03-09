@@ -172,7 +172,7 @@ const Internships = () => {
                     toDelete={`Internship/${item.id}`}
                     editedItem={item}
                     title="Mazání praxe"
-                    body={`Vážně chcete smazat praxi: ${item.id}`}
+                    body={`Vážně chcete smazat praxi: ${item.company.name}`}
                   ></DeleteEdit>
                 </td>
                 <td>
