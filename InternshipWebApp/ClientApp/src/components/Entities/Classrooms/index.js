@@ -30,6 +30,7 @@ const Classrooms = (props) => {
 
   useEffect(() => {
     setLoading(true);
+    console.log(accessToken);
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/Classroom`, {
         headers: {

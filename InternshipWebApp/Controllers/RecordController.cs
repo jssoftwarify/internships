@@ -12,11 +12,13 @@ using InternshipWebApp.Models;
 using InternshipWebApp.Services;
 using InternshipWebApp.Services.InternshipService;
 using InternshipWebApp.Services.RecordService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InternshipWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RecordController : ControllerBase
     {
         private ApplicationDbContext _context;

@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using InternshipWebApp.Models;
 using InternshipWebApp.Services.SpecializationService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InternshipWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SpecializationController : ControllerBase
     {
         private ISpecializationManager _specializationManager;
@@ -31,17 +33,20 @@ namespace InternshipWebApp.Controllers
             return await _specializationManager.Read(id);
         }
         [HttpPost]
+        [Authorize(Policy = "Administrator")]
         public async Task Post([FromBody] Specialization value)
         {
             await _specializationManager.Create(value);
         }
         [HttpPut("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task<Specialization> Put(int id, [FromBody] Specialization value)
         {
             await _specializationManager.Update(id, value);
             return await _specializationManager.Read(id);
         }
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task Delete(int id)
         {
             await _specializationManager.Delete(id);

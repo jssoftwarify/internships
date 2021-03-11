@@ -545,7 +545,7 @@ const DefinitionDetail = (props) => {
                                 md="8"
                                 className="text-left"
                               >
-                                <h1>
+                                <h2>
                                   {ids.map((item) => {
                                     var isEqual = false;
                                     var name = "";
@@ -561,7 +561,7 @@ const DefinitionDetail = (props) => {
                                       return null;
                                     }
                                   })}
-                                </h1>
+                                </h2>
                               </Col>
                             </Row>
                             <hr />

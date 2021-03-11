@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using InternshipWebApp.Models;
 using InternshipWebApp.Services.CompanyAddressService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InternshipWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CompanyAddressController : ControllerBase
     {
         private ICompanyAddressManager _companyAddressManager;
@@ -40,6 +42,7 @@ namespace InternshipWebApp.Controllers
             return await _companyAddressManager.Read(id);
         }
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task Delete(int id)
         {
             await _companyAddressManager.Delete(id);

@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using InternshipWebApp.Data;
 using InternshipWebApp.Models;
 using InternshipWebApp.Services.ProfessionalExperienceDefinitionService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InternshipWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProfessionalExperienceDefinitionController : ControllerBase
     {
         private IProfessionalExperienceDefinitionManager _professionalExperienceDefinitionManager;
@@ -33,22 +35,26 @@ namespace InternshipWebApp.Controllers
             return _professionalExperienceDefinitionManager.Read(id);
         }
         [HttpPost]
+        [Authorize(Policy = "Administrator")]
         public async Task Post([FromBody] DefinitionViewModel value)
         {
             await _professionalExperienceDefinitionManager.Create(value);   
         }
         [HttpPost("setState/{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task<ProfessionalExperienceDefinition> setState([FromRoute] int id)
         {
             return await _professionalExperienceDefinitionManager.setState(Convert.ToInt32(id));
         }
         [HttpPut("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task<ProfessionalExperienceDefinition> Put(int id, [FromBody] DefinitionViewModel value)
         {
             await _professionalExperienceDefinitionManager.Update(id, value);
             return await _professionalExperienceDefinitionManager.Read(id);
         }
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task Delete(int id)
         {
             await _professionalExperienceDefinitionManager.Delete(id);

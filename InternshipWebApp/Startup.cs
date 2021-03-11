@@ -63,10 +63,22 @@ namespace InternshipWebApp
             {
                 options.Authority = Configuration["Authority:Server"];
                 options.RequireHttpsMetadata = true;
-                options.Audience = Configuration["Authority:ClientId"];
+                options.Audience = "PlacementsApi";
             }
             );
-
+            services.AddAuthorization(options =>
+            {
+               
+                options.AddPolicy("Administrator", policy =>
+                {
+                    policy.RequireAssertion(context => (context.User.HasClaim(c => c.Type == "internship_administrator" && c.Value == "1")));
+                });
+                options.AddPolicy("Administrator", policy =>
+                {
+                    policy.RequireAssertion(context => (context.User.HasClaim(c => c.Type == "internship_controller" && c.Value == "1")));
+                });
+            });
+ 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Internship API", Version = "v1" });

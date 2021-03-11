@@ -14,6 +14,7 @@ namespace InternshipWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ClassroomController : ControllerBase
     {
         private ApplicationDbContext _context;
@@ -36,17 +37,20 @@ namespace InternshipWebApp.Controllers
             return await _classroomManager.Read(id);
         }
         [HttpPost]
+        [Authorize(Policy ="Administrator")]
         public async Task Post([FromBody] Classroom value)
         {
             await _classroomManager.Create(value);
         }
         [HttpPut("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task<Classroom> Put(int id, [FromBody] Classroom value)
         {
             await _classroomManager.Update(id, value);
             return await _classroomManager.Read(id);
         }
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task Delete(int id)
         {
             await _classroomManager.Delete(id);

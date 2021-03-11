@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using InternshipWebApp.Models;
 using InternshipWebApp.Services.CompanyService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InternshipWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CompanyController : ControllerBase
     {
         private ICompanyManager _companyManager;
@@ -42,6 +44,7 @@ namespace InternshipWebApp.Controllers
             await _companyManager.Update(id, value);
         }
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async Task Delete(int id)
         {
             await _companyManager.Delete(id);
