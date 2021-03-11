@@ -31,12 +31,22 @@ const Records = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         response.data.data.forEach((item) => {
           if (item.email === profile.email) {
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/internship`)
+              .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 response.data.forEach((item2) => {
                   if (item2.userId === item.id && item2.aktivni) {
@@ -53,7 +63,12 @@ const Records = () => {
       })
       .catch((error) => {});
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Record`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Record`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setItems(response.data);
       })
@@ -63,7 +78,7 @@ const Records = () => {
       .then(() => {
         setLoading(false);
       });
-  }, [profile]);
+  }, [profile, accessToken]);
 
   function renderList() {
     const array = items.map((item) => {

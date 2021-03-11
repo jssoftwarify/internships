@@ -43,13 +43,24 @@ const InspectionDetail = (props) => {
     setLoading(true);
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Internship`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Internship`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         response.data.forEach((item) => {
           if (item.id === parseInt(props.match.params.id)) {
             axios
               .get(
-                `${process.env.REACT_APP_API_URL}/api/Inspection/${item.inspection.id}`
+                `${process.env.REACT_APP_API_URL}/api/Inspection/${item.inspection.id}`,
+                {
+                  headers: {
+                    Authorization: "Bearer " + accessToken,
+                    "Content-Type": "application/json",
+                  },
+                }
               )
               .then((response) => {
                 setItem(response.data);
@@ -66,7 +77,7 @@ const InspectionDetail = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, [siteMode, props.match.params.id]);
+  }, [siteMode, props.match.params.id, accessToken]);
   const validate = (values) => {
     const errors = {};
     if (!values.AdditionalInformations) {

@@ -14,7 +14,7 @@ import Hamburger from "hamburger-react";
 import "../../styles/navbar-style.css";
 
 const Navbar = (props) => {
-  const [{ userManager, profile }] = useAppContext();
+  const [{ userManager, profile, accessToken }] = useAppContext();
   const [isOpen, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,13 +24,23 @@ const Navbar = (props) => {
     let mounted = true;
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         if (mounted) {
           response.data.data.forEach((item) => {
             if (item.email === profile.email) {
               axios
-                .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`)
+                .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
+                  headers: {
+                    Authorization: "Bearer " + accessToken,
+                    "Content-Type": "application/json",
+                  },
+                })
                 .then((response) => {
                   setUser(response.data);
                 })
@@ -48,7 +58,7 @@ const Navbar = (props) => {
         setLoading(false);
       });
     return () => (mounted = false);
-  }, [profile]);
+  }, [profile, accessToken]);
 
   function myFunction() {
     var x = document.getElementById("main");

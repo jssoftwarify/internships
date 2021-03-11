@@ -13,7 +13,7 @@ namespace InternshipWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class UsersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -28,6 +28,7 @@ namespace InternshipWebApp.Controllers
             _authorizationService = authorizationService;
         }
         [HttpGet]
+      
         public async Task<ActionResult<IEnumerable<User>>> GetUsers(string search = null, string sort = null)
         {
             IQueryable<User> users = _context.Users.Include(x=>x.Classroom).Include(x=>x.Specialization)/*.Include(x=>x.Address)*/;
@@ -56,6 +57,7 @@ namespace InternshipWebApp.Controllers
             return Ok(new { data = users });
         }
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<User>> GetUser(int id)
         {
 
@@ -71,6 +73,7 @@ namespace InternshipWebApp.Controllers
             return user;
         }
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<User>> PostUser([FromBody] User user)
         {
             foreach(var i in _context.Users)
@@ -99,6 +102,7 @@ namespace InternshipWebApp.Controllers
 
         }
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutUser(int id, User newUser)
         {
           
@@ -170,14 +174,15 @@ namespace InternshipWebApp.Controllers
 
             return user;
         }
-        
-        
+
+        [Authorize]
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
         }
 
         [HttpPost("setTelephone/{id}/{value}")]
+        [Authorize]
         public async Task<IActionResult> setTelephone( int id, string value)
         {
             var user = _context.Users.Find(id);
@@ -190,7 +195,9 @@ namespace InternshipWebApp.Controllers
             return Ok(new { user=user});
 
         }
+        
         [HttpPost("setBirthDate/{id}/{value}")]
+        [Authorize]
         public async Task<IActionResult> setBirthDate(int id, DateTime value)
         {
             var user = _context.Users.Find(id);
@@ -204,6 +211,7 @@ namespace InternshipWebApp.Controllers
 
         }
         [HttpPost("setUserAddress/{id}")]
+        [Authorize]
         public async Task<IActionResult> setUserAddress(int id, [FromBody] UserAddress value)
         {
             var user = _context.Users.Find(id);

@@ -38,7 +38,12 @@ const SpecializationCreate = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setCompanies(response.data);
       })
@@ -47,7 +52,12 @@ const SpecializationCreate = () => {
       });
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`)
+      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setAddresses(response.data);
       })
@@ -57,7 +67,13 @@ const SpecializationCreate = () => {
 
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`
+        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         setDefinitions(response.data);
@@ -67,12 +83,22 @@ const SpecializationCreate = () => {
       });
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         response.data.data.forEach((item) => {
           if (item.email === profile.email) {
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`)
+              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 setUser(response.data);
               })
@@ -86,7 +112,7 @@ const SpecializationCreate = () => {
       .then(() => {
         setLoading(false);
       });
-  }, [profile]);
+  }, [profile, accessToken]);
   function renderCompanies() {
     const array = companies.map((item) => {
       return (

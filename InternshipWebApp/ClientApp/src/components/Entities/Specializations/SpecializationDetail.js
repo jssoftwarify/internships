@@ -43,7 +43,13 @@ const SpecializationDetail = (props) => {
     setLoading(true);
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/api/Specialization/${props.match.params.id}`
+        `${process.env.REACT_APP_API_URL}/api/Specialization/${props.match.params.id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         setItem(response.data);
@@ -54,7 +60,7 @@ const SpecializationDetail = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, [props.match.params.id]);
+  }, [props.match.params.id, accessToken]);
   const validate = (values) => {
     const errors = {};
     if (!values.nazev) {

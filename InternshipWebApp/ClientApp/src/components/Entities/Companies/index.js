@@ -46,7 +46,12 @@ const Companies = (props) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setCompanies(response.data);
       })
@@ -55,7 +60,12 @@ const Companies = (props) => {
       });
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`)
+      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setAddresses(response.data);
       })
@@ -66,7 +76,7 @@ const Companies = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, []);
+  }, [accessToken]);
   const searchRequest = (searchString, sortString, mode) => {
     setLoading(true);
     if (mode === "company") {

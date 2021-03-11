@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { useAppContext } from "../providers/ApplicationProvider.js";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
+
 const MyModal = ({ handleClose, show, title, body, toDelete }) => {
+  const [{ accessToken, profile }] = useAppContext();
   const [error, setError] = useState(false);
   async function deleteItem() {
     let temp = false;
     await axios
-      .delete(`${process.env.REACT_APP_API_URL}/api/${toDelete}`)
+      .delete(`${process.env.REACT_APP_API_URL}/api/${toDelete}`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         console.log(res);
       })
@@ -22,7 +30,7 @@ const MyModal = ({ handleClose, show, title, body, toDelete }) => {
         }
       });
   }
-  if (show) {
+  if (show && accessToken) {
     return (
       <>
         <Modal isOpen={show}>

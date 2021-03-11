@@ -42,7 +42,13 @@ const RecordDetail = (props) => {
     setLoading(true);
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/api/Record/${props.match.params.id}`
+        `${process.env.REACT_APP_API_URL}/api/Record/${props.match.params.id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         setItem(response.data);
@@ -53,7 +59,7 @@ const RecordDetail = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, [props.match.params.id]);
+  }, [props.match.params.id, accessToken]);
 
   const validate = (values) => {
     const errors = {};

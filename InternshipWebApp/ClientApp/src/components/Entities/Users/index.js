@@ -30,7 +30,12 @@ const Users = (props) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setItems(response.data.data);
       })
@@ -39,7 +44,12 @@ const Users = (props) => {
       });
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/internship`)
+      .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setInternships(response.data);
       })
@@ -49,7 +59,7 @@ const Users = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, []);
+  }, [accessToken]);
   const searchRequest = (searchString, sortString) => {
     setLoading(true);
     axios

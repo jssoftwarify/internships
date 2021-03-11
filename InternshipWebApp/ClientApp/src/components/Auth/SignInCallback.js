@@ -17,23 +17,18 @@ const SignInCallback = () => {
 
   useEffect(() => {
     (async () => {
-      /*
-      if (profile == null || profile == undefined) {
-        window.history.replaceState(
-          {},
-          window.document.title,
-          window.location.origin + window.location.pathname
-        );
-        window.location = "/";
-      }
-      */
       const result = userManager
         ? await userManager.signinRedirectCallback()
         : null;
       if (result) {
         let temp = true;
         axios
-          .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+          .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+              "Content-Type": "application/json",
+            },
+          })
           .then((response) => {
             response.data.data.forEach((item) => {
               if (item.email === result.profile.email) {

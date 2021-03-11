@@ -34,7 +34,13 @@ const ClassroomCreate = () => {
     setLoading(true);
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`
+        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         setSelectListItems(response.data);
@@ -45,7 +51,7 @@ const ClassroomCreate = () => {
       .then(() => {
         setLoading(false);
       });
-  }, []);
+  }, [accessToken]);
 
   const validate = (values) => {
     const errors = {};

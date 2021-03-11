@@ -34,7 +34,12 @@ const AddressCreate = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setCompanies(response.data);
       })
@@ -44,7 +49,7 @@ const AddressCreate = () => {
       .then(() => {
         setLoading(false);
       });
-  }, []);
+  }, [accessToken]);
   function renderCompanies() {
     const array = companies.map((item) => {
       return (
@@ -69,7 +74,7 @@ const AddressCreate = () => {
     if (!values.PostalCode) {
       errors.PostalCode = "Nutné vyplnit poštovní směrovací číslo!";
     }
-    
+
     if (!values.CompanyId) {
       errors.CompanyId = "Nutné vybrat firmu";
     }

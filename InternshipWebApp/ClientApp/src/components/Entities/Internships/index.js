@@ -49,13 +49,23 @@ const Internships = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setUsers(response.data.data);
         response.data.data.forEach((item) => {
           if (item.email === profile.email) {
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`)
+              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 setUser(response.data);
               })
@@ -63,7 +73,12 @@ const Internships = () => {
                 setError(true);
               });
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/internship`)
+              .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 setItems(response.data);
               })
@@ -72,7 +87,12 @@ const Internships = () => {
               });
 
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`)
+              .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 setAddresses(response.data);
               })
@@ -80,7 +100,12 @@ const Internships = () => {
                 setError(true);
               });
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Company`)
+              .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 setCompanies(response.data);
               })
@@ -94,7 +119,7 @@ const Internships = () => {
         });
       })
       .catch((error) => {});
-  }, [profile]);
+  }, [profile, accessToken]);
   const searchRequest = (searchString, sortString) => {
     setLoading(true);
     axios
@@ -214,7 +239,13 @@ const Internships = () => {
   const setStateOfInternship = (id_input) => {
     axios
       .post(
-        `${process.env.REACT_APP_API_URL}/api/internship/setState/${id_input}`
+        `${process.env.REACT_APP_API_URL}/api/internship/setState/${id_input}`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         history.push("/home");

@@ -62,12 +62,22 @@ const Accounts = (props) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         response.data.data.forEach((item) => {
           if (item.email === profile.email) {
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`)
+              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 setUser(response.data);
               })
@@ -80,7 +90,12 @@ const Accounts = (props) => {
       .catch((error) => {});
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Classroom`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Classroom`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setClassrooms(response.data);
       })
@@ -89,7 +104,12 @@ const Accounts = (props) => {
       });
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Specialization`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Specialization`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setSpecializations(response.data);
       })

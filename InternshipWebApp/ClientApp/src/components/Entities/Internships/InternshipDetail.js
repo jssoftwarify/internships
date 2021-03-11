@@ -53,7 +53,13 @@ const InternshipDetail = (props) => {
     if (!internshipAlreadySet) {
       axios
         .get(
-          `${process.env.REACT_APP_API_URL}/api/Internship/${props.match.params.id}`
+          `${process.env.REACT_APP_API_URL}/api/Internship/${props.match.params.id}`,
+          {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+              "Content-Type": "application/json",
+            },
+          }
         )
         .then((response) => {
           setItem(response.data);
@@ -67,7 +73,12 @@ const InternshipDetail = (props) => {
         });
     }
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setCompanies(response.data);
       })
@@ -76,7 +87,12 @@ const InternshipDetail = (props) => {
       });
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`)
+      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setAddresses(response.data);
       })
@@ -86,7 +102,13 @@ const InternshipDetail = (props) => {
 
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`
+        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         setDefinitions(response.data);
@@ -95,7 +117,12 @@ const InternshipDetail = (props) => {
         setError(true);
       });
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         response.data.data.forEach((item1) => {
           if (item1.id === item.userId) {
@@ -107,7 +134,7 @@ const InternshipDetail = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, [props.match.params.id, profile, item, internshipAlreadySet]);
+  }, [props.match.params.id, profile, item, internshipAlreadySet, accessToken]);
   function renderCompanies() {
     const array = companies.map((item) => {
       return (

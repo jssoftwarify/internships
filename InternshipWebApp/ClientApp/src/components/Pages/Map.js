@@ -38,12 +38,22 @@ const Map = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         response.data.data.forEach((item) => {
           if (item.email === profile.email) {
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`)
+              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 setUser(response.data);
               })
@@ -55,7 +65,12 @@ const Map = () => {
       })
       .catch((error) => {});
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setCompanies(response.data);
       })
@@ -63,7 +78,12 @@ const Map = () => {
         setError(true);
       });
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`)
+      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setAddresses(response.data);
       })
@@ -72,14 +92,25 @@ const Map = () => {
       });
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/internship`)
+      .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setInternships(response.data);
       })
       .catch((error) => {});
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`
+        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         setDefinitions(response.data);
@@ -90,7 +121,7 @@ const Map = () => {
       .then(() => {
         setLoading(false);
       });
-  }, [profile.email]);
+  }, [profile.email, accessToken]);
   const renderMarkers = (definitions) => {
     const markers = addresses.map((item) => {
       var company;

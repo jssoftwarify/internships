@@ -29,7 +29,13 @@ const CompanyDetail = (props) => {
     setLoading(true);
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/api/Company/${props.match.params.id}`
+        `${process.env.REACT_APP_API_URL}/api/Company/${props.match.params.id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         console.log(response);
@@ -41,7 +47,7 @@ const CompanyDetail = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, [props.match.params.id]);
+  }, [props.match.params.id, accessToken]);
 
   if (accessToken) {
     if (profile.hasOwnProperty("internship_administrator")) {

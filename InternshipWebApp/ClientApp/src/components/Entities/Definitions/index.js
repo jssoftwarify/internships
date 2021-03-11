@@ -33,7 +33,13 @@ const Definitions = (props) => {
     setLoading(true);
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`
+        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         setItems(response.data);
@@ -44,7 +50,7 @@ const Definitions = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, []);
+  }, [accessToken]);
   const searchRequest = (searchString, sortString) => {
     setLoading(true);
     axios
@@ -124,7 +130,13 @@ const Definitions = (props) => {
     setLoading(true);
     axios
       .post(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition/setState/${id_input}`
+        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition/setState/${id_input}`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         window.location.reload();

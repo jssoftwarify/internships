@@ -35,18 +35,33 @@ const RecordCreate = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         response.data.data.forEach((item) => {
           if (item.email === profile.email) {
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`)
+              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {})
               .catch((error) => {
                 setError(true);
               });
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/internship`)
+              .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 response.data.forEach((item2) => {
                   if ((item2.userId === item.id) & (item2.aktivni === true)) {
@@ -64,7 +79,7 @@ const RecordCreate = () => {
       .then(() => {
         setLoading(false);
       });
-  }, [profile]);
+  }, [profile, accessToken]);
 
   const validate = (values) => {
     const errors = {};
@@ -154,7 +169,6 @@ const RecordCreate = () => {
                           onBlur={formik.handleBlur}
                           value={formik.values.hours}
                         />
-                        
                       </FormGroup>
                       <FormGroup>
                         <Label>Datum záznamu</Label>

@@ -12,11 +12,13 @@ using InternshipWebApp.Data;
 using InternshipWebApp.Models;
 using InternshipWebApp.Services;
 using InternshipWebApp.Services.InternshipService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InternshipWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class InternshipController : ControllerBase
     {
         private IInternshipManager _internshipManager;

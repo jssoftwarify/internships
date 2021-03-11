@@ -48,7 +48,13 @@ const DefinitionDetail = (props) => {
     setLoading(true);
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition/${props.match.params.id}`
+        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition/${props.match.params.id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((response) => {
         setItem(response.data);

@@ -55,14 +55,24 @@ const Home = (props) => {
     setLoading(true);
     var userId = null;
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setUsers(response.data.data);
         response.data.data.forEach((item) => {
           if (item.email === profile.email) {
             userId = item.id;
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Users/${userId}`)
+              .get(`${process.env.REACT_APP_API_URL}/api/Users/${userId}`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 setUser(response.data);
               })
@@ -70,7 +80,12 @@ const Home = (props) => {
                 setError(true);
               });
             axios
-              .get(`${process.env.REACT_APP_API_URL}/api/internship`)
+              .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
+                headers: {
+                  Authorization: "Bearer " + accessToken,
+                  "Content-Type": "application/json",
+                },
+              })
               .then((response) => {
                 setInternships(response.data);
                 response.data.forEach((item2) => {
@@ -92,7 +107,12 @@ const Home = (props) => {
       .catch((error) => {});
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`)
+      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setAddresses(response.data);
       })
@@ -100,7 +120,12 @@ const Home = (props) => {
         setError(true);
       });
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`)
+      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setCompanies(response.data);
       })
@@ -110,7 +135,7 @@ const Home = (props) => {
       .then(() => {
         setLoading(false);
       });
-  }, [profile]);
+  }, [profile, accessToken]);
 
   const validate = (values) => {
     const errors = {};

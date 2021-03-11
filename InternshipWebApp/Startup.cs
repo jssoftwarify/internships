@@ -73,7 +73,7 @@ namespace InternshipWebApp
                 {
                     policy.RequireAssertion(context => (context.User.HasClaim(c => c.Type == "internship_administrator" && c.Value == "1")));
                 });
-                options.AddPolicy("Administrator", policy =>
+                options.AddPolicy("Controller", policy =>
                 {
                     policy.RequireAssertion(context => (context.User.HasClaim(c => c.Type == "internship_controller" && c.Value == "1")));
                 });
