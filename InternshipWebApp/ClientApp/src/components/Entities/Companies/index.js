@@ -45,37 +45,39 @@ const Companies = (props) => {
   }
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setCompanies(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setCompanies(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        });
 
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setAddresses(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setAddresses(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [accessToken]);
   const searchRequest = (searchString, sortString, mode) => {
     setLoading(true);

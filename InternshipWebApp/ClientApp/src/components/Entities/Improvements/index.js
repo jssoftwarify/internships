@@ -30,22 +30,24 @@ const Improvements = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Improvement`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setItems(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Improvement`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setItems(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [accessToken]);
   const searchRequest = (searchString, sortString) => {
     setLoading(true);

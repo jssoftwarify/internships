@@ -41,25 +41,27 @@ const ImprovementDetail = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/api/Improvement/${props.match.params.id}`,
-        {
-          headers: {
-            Authorization: "Bearer " + accessToken,
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        setItem(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+    if (accessToken) {
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/api/Improvement/${props.match.params.id}`,
+          {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          setItem(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [props.match.params.id, accessToken]);
 
   const validate = (values) => {

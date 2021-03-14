@@ -12,7 +12,7 @@ namespace InternshipWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   
     public class CompanyController : ControllerBase
     {
         private ICompanyManager _companyManager;
@@ -39,6 +39,7 @@ namespace InternshipWebApp.Controllers
             }
         }
         [HttpPut("{id}")]
+        [Authorize(Policy = "Administrator")]
         public async void Put(int id, [FromBody] Company value)
         {
             await _companyManager.Update(id, value);

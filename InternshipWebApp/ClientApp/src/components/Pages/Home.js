@@ -53,88 +53,90 @@ const Home = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    var userId = null;
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setUsers(response.data.data);
-        response.data.data.forEach((item) => {
-          if (item.email === profile.email) {
-            userId = item.id;
-            axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Users/${userId}`, {
-                headers: {
-                  Authorization: "Bearer " + accessToken,
-                  "Content-Type": "application/json",
-                },
-              })
-              .then((response) => {
-                setUser(response.data);
-              })
-              .catch((error) => {
-                setError(true);
-              });
-            axios
-              .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
-                headers: {
-                  Authorization: "Bearer " + accessToken,
-                  "Content-Type": "application/json",
-                },
-              })
-              .then((response) => {
-                setInternships(response.data);
-                response.data.forEach((item2) => {
-                  if (
-                    (item2.userId === userId) &
-                    item2.aktivni &
-                    (item2.professionalExperienceDefinition.active === true)
-                  ) {
-                    setInternship(item2);
-                  }
+    if (accessToken) {
+      var userId = null;
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setUsers(response.data.data);
+          response.data.data.forEach((item) => {
+            if (item.email === profile.email) {
+              userId = item.id;
+              axios
+                .get(`${process.env.REACT_APP_API_URL}/api/Users/${userId}`, {
+                  headers: {
+                    Authorization: "Bearer " + accessToken,
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  setUser(response.data);
+                })
+                .catch((error) => {
+                  setError(true);
                 });
-              })
-              .catch((error) => {
-                setError(true);
-              });
-          }
-        });
-      })
-      .catch((error) => {});
+              axios
+                .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
+                  headers: {
+                    Authorization: "Bearer " + accessToken,
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  setInternships(response.data);
+                  response.data.forEach((item2) => {
+                    if (
+                      (item2.userId === userId) &
+                      item2.aktivni &
+                      (item2.professionalExperienceDefinition.active === true)
+                    ) {
+                      setInternship(item2);
+                    }
+                  });
+                })
+                .catch((error) => {
+                  setError(true);
+                });
+            }
+          });
+        })
+        .catch((error) => {});
 
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setAddresses(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setCompanies(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setAddresses(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        });
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setCompanies(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [profile, accessToken]);
 
   const validate = (values) => {

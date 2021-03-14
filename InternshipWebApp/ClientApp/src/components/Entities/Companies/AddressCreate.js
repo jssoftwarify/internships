@@ -33,22 +33,24 @@ const AddressCreate = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setCompanies(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setCompanies(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [accessToken]);
   function renderCompanies() {
     const array = companies.map((item) => {

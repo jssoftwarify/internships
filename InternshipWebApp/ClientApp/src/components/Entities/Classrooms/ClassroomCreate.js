@@ -32,25 +32,27 @@ const ClassroomCreate = () => {
   const [selectListItems, setSelectListItems] = useState([]);
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`,
-        {
-          headers: {
-            Authorization: "Bearer " + accessToken,
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        setSelectListItems(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+    if (accessToken) {
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`,
+          {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          setSelectListItems(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [accessToken]);
 
   const validate = (values) => {

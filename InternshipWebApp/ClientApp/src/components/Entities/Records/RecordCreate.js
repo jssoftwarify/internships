@@ -34,51 +34,53 @@ const RecordCreate = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        response.data.data.forEach((item) => {
-          if (item.email === profile.email) {
-            axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
-                headers: {
-                  Authorization: "Bearer " + accessToken,
-                  "Content-Type": "application/json",
-                },
-              })
-              .then((response) => {})
-              .catch((error) => {
-                setError(true);
-              });
-            axios
-              .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
-                headers: {
-                  Authorization: "Bearer " + accessToken,
-                  "Content-Type": "application/json",
-                },
-              })
-              .then((response) => {
-                response.data.forEach((item2) => {
-                  if ((item2.userId === item.id) & (item2.aktivni === true)) {
-                    setInternship(item2);
-                  }
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          response.data.data.forEach((item) => {
+            if (item.email === profile.email) {
+              axios
+                .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
+                  headers: {
+                    Authorization: "Bearer " + accessToken,
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {})
+                .catch((error) => {
+                  setError(true);
                 });
-              })
-              .catch((error) => {
-                setError(true);
-              });
-          }
+              axios
+                .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
+                  headers: {
+                    Authorization: "Bearer " + accessToken,
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  response.data.forEach((item2) => {
+                    if ((item2.userId === item.id) & (item2.aktivni === true)) {
+                      setInternship(item2);
+                    }
+                  });
+                })
+                .catch((error) => {
+                  setError(true);
+                });
+            }
+          });
+        })
+        .catch((error) => {})
+        .then(() => {
+          setLoading(false);
         });
-      })
-      .catch((error) => {})
-      .then(() => {
-        setLoading(false);
-      });
+    }
   }, [profile, accessToken]);
 
   const validate = (values) => {

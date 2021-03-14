@@ -30,23 +30,25 @@ const Specializations = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Specialization`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setItems(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Specialization`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setItems(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [accessToken]);
   function renderList() {
     const array = items.map((item) => {

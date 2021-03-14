@@ -41,42 +41,43 @@ const InspectionDetail = (props) => {
 
   useEffect(() => {
     setLoading(true);
-
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Internship`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        response.data.forEach((item) => {
-          if (item.id === parseInt(props.match.params.id)) {
-            axios
-              .get(
-                `${process.env.REACT_APP_API_URL}/api/Inspection/${item.inspection.id}`,
-                {
-                  headers: {
-                    Authorization: "Bearer " + accessToken,
-                    "Content-Type": "application/json",
-                  },
-                }
-              )
-              .then((response) => {
-                setItem(response.data);
-              })
-              .catch((error) => {
-                setError(true);
-              });
-          }
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Internship`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          response.data.forEach((item) => {
+            if (item.id === parseInt(props.match.params.id)) {
+              axios
+                .get(
+                  `${process.env.REACT_APP_API_URL}/api/Inspection/${item.inspection.id}`,
+                  {
+                    headers: {
+                      Authorization: "Bearer " + accessToken,
+                      "Content-Type": "application/json",
+                    },
+                  }
+                )
+                .then((response) => {
+                  setItem(response.data);
+                })
+                .catch((error) => {
+                  setError(true);
+                });
+            }
+          });
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
         });
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+    }
   }, [siteMode, props.match.params.id, accessToken]);
   const validate = (values) => {
     const errors = {};

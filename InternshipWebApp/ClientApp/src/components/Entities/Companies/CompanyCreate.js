@@ -51,7 +51,7 @@ const CompanyCreate = () => {
           },
         })
         .then((response) => {
-          setError(false);
+          //setError(false);
           profile.hasOwnProperty("internship_student")
             ? history.push("/home")
             : history.push("/companies");

@@ -23,40 +23,45 @@ const Navbar = (props) => {
   useEffect(() => {
     let mounted = true;
     setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        if (mounted) {
-          response.data.data.forEach((item) => {
-            if (item.email === profile.email) {
-              axios
-                .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
-                  headers: {
-                    Authorization: "Bearer " + accessToken,
-                    "Content-Type": "application/json",
-                  },
-                })
-                .then((response) => {
-                  setUser(response.data);
-                })
-                .catch((error) => {
-                  setError(true);
-                });
-            }
-          });
-        }
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          if (mounted) {
+            response.data.data.forEach((item) => {
+              if (item.email === profile.email) {
+                axios
+                  .get(
+                    `${process.env.REACT_APP_API_URL}/api/Users/${item.id}`,
+                    {
+                      headers: {
+                        Authorization: "Bearer " + accessToken,
+                        "Content-Type": "application/json",
+                      },
+                    }
+                  )
+                  .then((response) => {
+                    setUser(response.data);
+                  })
+                  .catch((error) => {
+                    setError(true);
+                  });
+              }
+            });
+          }
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
     return () => (mounted = false);
   }, [profile, accessToken]);
 

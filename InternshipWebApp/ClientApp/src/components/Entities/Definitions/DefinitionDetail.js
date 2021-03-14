@@ -46,69 +46,71 @@ const DefinitionDetail = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition/${props.match.params.id}`,
-        {
+    if (accessToken) {
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition/${props.match.params.id}`,
+          {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          setItem(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        });
+
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Classroom`, {
           headers: {
             Authorization: "Bearer " + accessToken,
             "Content-Type": "application/json",
           },
-        }
-      )
-      .then((response) => {
-        setItem(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
+        })
+        .then((response) => {
+          setSelectListItems(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        });
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/api/professionalExperienceDefinition/getClassrooms/${props.match.params.id}`,
+          {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          setIds(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        });
 
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Classroom`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setSelectListItems(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
-    axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/api/professionalExperienceDefinition/getClassrooms/${props.match.params.id}`,
-        {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/classroom`, {
           headers: {
             Authorization: "Bearer " + accessToken,
             "Content-Type": "application/json",
           },
-        }
-      )
-      .then((response) => {
-        setIds(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
-
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/classroom`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setClassrooms(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+        })
+        .then((response) => {
+          setClassrooms(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [props.match.params.id, accessToken]);
 
   const validate = (values) => {

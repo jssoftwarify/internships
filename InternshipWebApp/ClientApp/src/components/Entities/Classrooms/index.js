@@ -30,23 +30,24 @@ const Classrooms = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    console.log(accessToken);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Classroom`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setItems(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Classroom`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setItems(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [accessToken]);
   const searchRequest = (searchString, sortString) => {
     setLoading(true);

@@ -43,40 +43,41 @@ const AddressDetail = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/api/CompanyAddress/${props.match.params.id}`,
-        {
+    if (accessToken) {
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/api/CompanyAddress/${props.match.params.id}`,
+          {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          setItem(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        });
+
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
           headers: {
             Authorization: "Bearer " + accessToken,
             "Content-Type": "application/json",
           },
-        }
-      )
-      .then((response) => {
-        setItem(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
-
-    axios
-
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setSelectListItems(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+        })
+        .then((response) => {
+          setSelectListItems(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [props.match.params.id, accessToken]);
   function renderSelectListItems() {
     const array = selectListItems.map((item) => {

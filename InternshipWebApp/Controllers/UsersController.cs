@@ -175,14 +175,12 @@ namespace InternshipWebApp.Controllers
             return user;
         }
 
-        [Authorize]
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
         }
 
         [HttpPost("setTelephone/{id}/{value}")]
-        [Authorize]
         public async Task<IActionResult> setTelephone( int id, string value)
         {
             var user = _context.Users.Find(id);
@@ -197,7 +195,6 @@ namespace InternshipWebApp.Controllers
         }
         
         [HttpPost("setBirthDate/{id}/{value}")]
-        [Authorize]
         public async Task<IActionResult> setBirthDate(int id, DateTime value)
         {
             var user = _context.Users.Find(id);
@@ -211,7 +208,6 @@ namespace InternshipWebApp.Controllers
 
         }
         [HttpPost("setUserAddress/{id}")]
-        [Authorize]
         public async Task<IActionResult> setUserAddress(int id, [FromBody] UserAddress value)
         {
             var user = _context.Users.Find(id);

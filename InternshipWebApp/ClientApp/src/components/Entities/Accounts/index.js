@@ -61,64 +61,64 @@ const Accounts = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        response.data.data.forEach((item) => {
-          if (item.email === profile.email) {
-            axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
-                headers: {
-                  Authorization: "Bearer " + accessToken,
-                  "Content-Type": "application/json",
-                },
-              })
-              .then((response) => {
-                setUser(response.data);
-              })
-              .catch((error) => {
-                setError(true);
-              });
-          }
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          response.data.data.forEach((item) => {
+            if (item.email === profile.email) {
+              axios
+                .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
+                  headers: {
+                    Authorization: "Bearer " + accessToken,
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  setUser(response.data);
+                })
+                .catch((error) => {
+                  setError(true);
+                });
+            }
+          });
+        })
+        .catch((error) => {});
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Classroom`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setClassrooms(response.data);
+        })
+        .catch((error) => {
+          setError(true);
         });
-      })
-      .catch((error) => {});
-
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Classroom`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setClassrooms(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
-
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Specialization`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setSpecializations(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Specialization`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setSpecializations(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [profile, accessToken]);
 
   const validate = (values) => {

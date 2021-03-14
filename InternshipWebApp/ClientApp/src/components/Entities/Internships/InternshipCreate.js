@@ -37,81 +37,83 @@ const SpecializationCreate = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setCompanies(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
-
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setAddresses(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
-
-    axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`,
-        {
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Company`, {
           headers: {
             Authorization: "Bearer " + accessToken,
             "Content-Type": "application/json",
           },
-        }
-      )
-      .then((response) => {
-        setDefinitions(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      });
-
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        response.data.data.forEach((item) => {
-          if (item.email === profile.email) {
-            axios
-              .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
-                headers: {
-                  Authorization: "Bearer " + accessToken,
-                  "Content-Type": "application/json",
-                },
-              })
-              .then((response) => {
-                setUser(response.data);
-              })
-              .catch((error) => {
-                setError(true);
-              });
-          }
+        })
+        .then((response) => {
+          setCompanies(response.data);
+        })
+        .catch((error) => {
+          setError(true);
         });
-      })
-      .catch((error) => {})
-      .then(() => {
-        setLoading(false);
-      });
+
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/CompanyAddress`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setAddresses(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        });
+
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/api/ProfessionalExperienceDefinition`,
+          {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          setDefinitions(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        });
+
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          response.data.data.forEach((item) => {
+            if (item.email === profile.email) {
+              axios
+                .get(`${process.env.REACT_APP_API_URL}/api/Users/${item.id}`, {
+                  headers: {
+                    Authorization: "Bearer " + accessToken,
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  setUser(response.data);
+                })
+                .catch((error) => {
+                  setError(true);
+                });
+            }
+          });
+        })
+        .catch((error) => {})
+        .then(() => {
+          setLoading(false);
+        });
+    }
   }, [profile, accessToken]);
   function renderCompanies() {
     const array = companies.map((item) => {

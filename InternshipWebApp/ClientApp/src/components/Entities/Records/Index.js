@@ -30,54 +30,56 @@ const Records = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        response.data.data.forEach((item) => {
-          if (item.email === profile.email) {
-            axios
-              .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
-                headers: {
-                  Authorization: "Bearer " + accessToken,
-                  "Content-Type": "application/json",
-                },
-              })
-              .then((response) => {
-                response.data.forEach((item2) => {
-                  if (item2.userId === item.id && item2.aktivni) {
-                    setInternship(item2);
-                    setUser(item);
-                  }
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Users`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          response.data.data.forEach((item) => {
+            if (item.email === profile.email) {
+              axios
+                .get(`${process.env.REACT_APP_API_URL}/api/internship`, {
+                  headers: {
+                    Authorization: "Bearer " + accessToken,
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  response.data.forEach((item2) => {
+                    if (item2.userId === item.id && item2.aktivni) {
+                      setInternship(item2);
+                      setUser(item);
+                    }
+                  });
+                })
+                .catch((error) => {
+                  setError(true);
                 });
-              })
-              .catch((error) => {
-                setError(true);
-              });
-          }
+            }
+          });
+        })
+        .catch((error) => {});
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/Record`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          setItems(response.data);
+        })
+        .catch((error) => {
+          setError(true);
+        })
+        .then(() => {
+          setLoading(false);
         });
-      })
-      .catch((error) => {});
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/Record`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        setItems(response.data);
-      })
-      .catch((error) => {
-        setError(true);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+    }
   }, [profile, accessToken]);
 
   function renderList() {
