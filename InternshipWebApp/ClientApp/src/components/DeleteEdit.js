@@ -21,16 +21,23 @@ const DeleteEdit = (props) => {
       <div>
         <button
           className="icon-parent1"
-          disabled={
-            profile.hasOwnProperty("internship_administrator") | props.allowed
-              ? false
-              : true
+          style={{}}
+          style={
+            profile.hasOwnProperty("internship_administrator") |
+            (props.allowed === true)
+              ? {
+                  outline: "none",
+                  border: "none",
+                  backgroundColor: "transparent",
+                }
+              : {
+                  outline: "none",
+                  border: "none",
+                  backgroundColor: "transparent",
+
+                  pointerEvents: "none",
+                }
           }
-          style={{
-            outline: "none",
-            border: "none",
-            backgroundColor: "transparent",
-          }}
           onClick={(e) => {
             modalOpen(e);
           }}
@@ -40,7 +47,9 @@ const DeleteEdit = (props) => {
             className="icon"
             size="2x"
             color=" #ffffff"
-            style={{ padding: 5 }}
+            style={{
+              padding: 5,
+            }}
           ></FontAwesomeIcon>
         </button>
 

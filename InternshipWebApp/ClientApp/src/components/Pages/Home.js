@@ -298,19 +298,17 @@ const Home = (props) => {
   };
   const renderAddressUsers = (id) => {
     if (internships) {
-      const array = internships.map((item, index) => {
+      const userArray = [];
+      internships.forEach((item) => {
         if (
           (item.companyAddress.id === id) &
           item.professionalExperienceDefinition.active &
           item.aktivni
         ) {
-          users.push(item.userId);
-          return <ul key={index}>{renderUser(users)}</ul>;
-        } else {
-          return null;
+          userArray.push(item.userId);
         }
       });
-      return array;
+      return <ul>{renderUser(userArray)}</ul>;
     } else {
       return null;
     }

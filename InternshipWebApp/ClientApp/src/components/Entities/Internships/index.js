@@ -194,13 +194,14 @@ const Internships = () => {
                 <td>{userName}</td>
                 <td style={{ textAlign: "center" }}>
                   <DeleteEdit
-                    allowed={true}
+                    allowed={item.inspection != null ? false : true}
                     toShow={`internships/${item.id}`}
                     toDelete={`Internship/${item.id}`}
                     editedItem={item}
                     title="Mazání praxe"
                     body={`Vážně chcete smazat praxi: ${item.company.name}`}
                   ></DeleteEdit>
+                  {console.log(item.inspection)}
                 </td>
                 <td>
                   <Button
