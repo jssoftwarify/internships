@@ -35,6 +35,8 @@ const Map = () => {
   const [definitionIds, setDefinitionIds] = useState([]);
   const [definitions, setDefinitions] = useState([]);
 
+  const [currentPos, setCurrentPos] = useState(null);
+
   useEffect(() => {
     setLoading(true);
     if (accessToken) {
@@ -239,7 +241,6 @@ const Map = () => {
         >{`${item.name} (${item.year})`}</option>
       );
     });
-    return array;
   };
   if (accessToken) {
     if (error) {
@@ -316,7 +317,7 @@ const Map = () => {
                   attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {renderMarkers()}
+                {/*renderMarkers()*/}
               </MapContainer>
             </Row>
           </Container>

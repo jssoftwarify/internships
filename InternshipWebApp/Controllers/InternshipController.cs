@@ -97,11 +97,11 @@ namespace InternshipWebApp.Controllers
             string definice = "";
             if (internship.ProfessionalExperienceDefinition.Longtime)
             {
-                definice = "Odborná praxe je průběžná - 1 den v týdnu, s denní pracovní dobou 8 hodin, její začátek je stanoven na 21.09.2020.";
+                definice = "Odborná praxe je průběžná - 1 den v týdnu, s denní pracovní dobou 8 hodin, její začátek je stanoven na" + internship.ProfessionalExperienceDefinition.Start.ToString("dd.MM.yyy") + ".";
             }
             else
             {
-                definice = "Odborná praxe je souvislá - 10 denní, s denní pracovní dobou 8 hodin, její začátek je stanoven na 20.05.2019.";
+                definice = "Odborná praxe je souvislá - 10 denní, s denní pracovní dobou 8 hodin, její začátek je stanoven na" + internship.ProfessionalExperienceDefinition.Start.ToString("dd.MM.yyy") + ".";
             }
 
             string documentBody = await _razorViewToStringRenderer.RenderViewToStringAsync("/Prints/Contract.cshtml", new Contract
@@ -118,7 +118,7 @@ namespace InternshipWebApp.Controllers
                 StudentBirthDate = user.BirthDate.ToString("dd.MM.yyy"),
                 StudentTelephone = user.TelephoneNumber,
                 CompanyRepresentative = internship.CompanyRepresentative,
-                CompanyRepresentativeTelephone = internship.CompaniesContacPersonTelephoneNumber,
+                CompanyRepresentativeTelephone = internship.CompaniesRepresentativeTelephoneNumber,
                 CompanyRepresentativeEmail = internship.CompaniesRepresentativeEmail,
                 InternshipAddress = formatedAddressInternship,
                 InternshipDetail = internship.JobDescription,
